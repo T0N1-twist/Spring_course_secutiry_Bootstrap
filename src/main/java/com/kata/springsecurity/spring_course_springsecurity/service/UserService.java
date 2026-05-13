@@ -11,9 +11,11 @@ public interface UserService {
 
      User getUserById(Long id);
 
-    void saveUser(User user);
+    void saveUser(String username, String lastName, Integer age,
+                  String email, String password, List<Integer> roleIds);
 
-     void updateUser(User user);
+     void updateUser(Long id, String username, String lastName, Integer age,
+                     String email, String password, List<Integer> roleIds);
 
      void deleteUser(Long id);
 

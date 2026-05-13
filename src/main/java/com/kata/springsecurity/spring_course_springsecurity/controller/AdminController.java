@@ -18,8 +18,9 @@ import java.util.Set;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    private UserService userService;
-    private RoleService roleService;
+
+    private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
     public AdminController(UserService userService, RoleService roleService) {
@@ -27,11 +28,7 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/generate-hash")
-    @ResponseBody
-    public String generateHash() {
-        return new BCryptPasswordEncoder().encode("admin");
-    }
+
 
     @GetMapping
     public String showAdminPage(Model model, Authentication authentication) {
@@ -49,17 +46,7 @@ public class AdminController {
                              @RequestParam String email,
                              @RequestParam String password,
                              @RequestParam(required = false) List<Integer> roleIds) {
-        User user = new User();
-        user.setUsername(username);
-        user.setLastName(lastName);
-        user.setAge(age);
-        user.setEmail(email);
-        user.setPassword(password);
-        if (roleIds != null) {
-            Set<Role> roles = new HashSet<>(roleService.getRolesByIds(roleIds));
-            user.setRoles(roles);
-        }
-        userService.saveUser(user);
+        userService.saveUser(username, lastName, age, email, password, roleIds);
         return "redirect:/admin";
     }
 
@@ -69,23 +56,9 @@ public class AdminController {
                              @RequestParam String lastName,
                              @RequestParam Integer age,
                              @RequestParam String email,
-                             @RequestParam(required = false) String password,  // ← required = false
+                             @RequestParam(required = false) String password,
                              @RequestParam(required = false) List<Integer> roleIds) {
-        User user = userService.getUserById(id);
-        user.setUsername(username);
-        user.setLastName(lastName);
-        user.setAge(age);
-        user.setEmail(email);
-
-        // просто передаём пароль как есть (null или plain text)
-        // сервис сам проверит isBlank и зашифрует
-        user.setPassword(password);
-
-        if (roleIds != null) {
-            Set<Role> roles = new HashSet<>(roleService.getRolesByIds(roleIds));
-            user.setRoles(roles);
-        }
-        userService.updateUser(user);
+        userService.updateUser(id, username, lastName, age, email, password, roleIds);
         return "redirect:/admin";
     }
 

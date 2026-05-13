@@ -24,15 +24,8 @@ public class MyCustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userService.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("User not found: " + email);
         }
-        System.out.println("User found: " + user.getEmail());
-        System.out.println("Hash length: " + user.getPassword().length());
-        System.out.println("Hash bytes: [" + user.getPassword() + "]");
-        boolean matches = new BCryptPasswordEncoder().matches("admin", user.getPassword());
-        System.out.println("Does 'admin' match stored hash? " + matches);
-        System.out.println("Roles count: " + user.getRoles().size());
-        user.getRoles().forEach(r -> System.out.println("Role: " + r.getAuthority()));
         return new UserDetailsCustomClass(user);
     }
 
