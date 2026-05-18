@@ -5,17 +5,15 @@ import com.kata.springsecurity.spring_course_springsecurity.model.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import java.util.HashSet;
 import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
-
 
 
     public  UserServiceImpl(UserRepository userRepository,PasswordEncoder passwordEncoder,RoleService roleService ) {
@@ -95,7 +93,5 @@ public class UserServiceImpl implements UserService {
         return userRepository.findWithRolesByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User by this username is not found"));
     }
-
-
 
 }

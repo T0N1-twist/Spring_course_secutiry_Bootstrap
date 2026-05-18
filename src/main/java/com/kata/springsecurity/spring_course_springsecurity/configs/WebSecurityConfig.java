@@ -3,7 +3,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import com.kata.springsecurity.spring_course_springsecurity.service.MyCustomUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +26,7 @@ public class WebSecurityConfig {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailService); // <-- userDetailsService в конструктор
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailService);
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }

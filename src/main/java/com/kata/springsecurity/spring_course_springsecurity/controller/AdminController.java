@@ -3,12 +3,10 @@ package com.kata.springsecurity.spring_course_springsecurity.controller;
 
 import com.kata.springsecurity.spring_course_springsecurity.service.RoleService;
 import com.kata.springsecurity.spring_course_springsecurity.service.UserService;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 

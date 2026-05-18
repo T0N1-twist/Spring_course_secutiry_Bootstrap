@@ -21,7 +21,6 @@ public class UserController {
         model.addAttribute("user", details.getUser());
         model.addAttribute("currentUser", authentication.getName());
         model.addAttribute("currentUserRoles", authentication.getAuthorities());
-
         return "user";
     }
 }
